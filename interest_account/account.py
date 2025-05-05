@@ -50,6 +50,7 @@ class InterestAccount:
 
         self.balance += money
         self.transactions.append(Transaction(
+            user_id=self.user_id,
             amount=money,
             type=TransactionType.DEPOSIT,
             timestamp=datetime.now(timezone.utc)

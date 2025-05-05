@@ -69,3 +69,4 @@ def test_transaction_should_include_timestamp():
     tx = account.transactions[0]
     assert hasattr(tx, "timestamp")
     assert isinstance(tx.timestamp, datetime.datetime)
+    assert tx.user_id == account.user_id
