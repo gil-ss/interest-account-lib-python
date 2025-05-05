@@ -22,7 +22,7 @@ It calculates interest based on user income using business rules, tracks deposit
 
 ---
 
-### 📦 Installation
+### Installation
 
 ```bash
 git clone git@github.com:gil-ss/interest-account-lib-python.git
