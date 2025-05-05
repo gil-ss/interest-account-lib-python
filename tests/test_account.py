@@ -23,3 +23,10 @@ def test_new_account_should_start_with_empty_transaction_list():
 def test_new_account_should_start_with_zero_skipped_interest():
     account = InterestAccount(user_id=uuid4(), interest_rate=0.5)
     assert account.skipped_interest == Decimal("0.00")
+
+
+def test_deposit_should_increase_balance_and_log_transaction():
+    account = InterestAccount(user_id=uuid4(), interest_rate=0.5)
+    account.deposit("100.50")
+    assert account.balance == Decimal("100.50")
+    assert len(account.transactions) == 1
