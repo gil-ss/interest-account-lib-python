@@ -32,5 +32,19 @@ class InterestAccount:
 
 
     def deposit(self, amount) -> None:
-        self.balance += Decimal(amount)
+        """
+        Deposits a valid monetary amount into the account.
+
+        Args:
+            amount (str | int | Decimal): The deposit amount.
+
+        Raises:
+            ValueError: If the deposit amount is zero or negative.
+        """
+        money = Decimal(amount)
+
+        if money <= Decimal("0.00"):
+            raise ValueError("Deposit amount must be positive.")
+
+        self.balance += money
         self.transactions.append("deposit")
