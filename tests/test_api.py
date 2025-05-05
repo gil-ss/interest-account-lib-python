@@ -11,9 +11,8 @@ def test_set_and_get_monthly_income():
 
 
 def test_get_interest_rate_based_on_income():
-    api = StatsAPI()
-    assert api.get_interest_rate(Decimal("900.00"))     == 0.5
-    assert api.get_interest_rate(Decimal("1000.00"))    == 0.5
-    assert api.get_interest_rate(Decimal("1000.01"))    == 0.93
-    assert api.get_interest_rate(Decimal("4000.00"))    == 0.93
-    assert api.get_interest_rate(Decimal("4000.01"))    == 1.02
+    assert StatsAPI.get_interest_rate(Decimal("900.00")) == 0.5
+    assert StatsAPI.get_interest_rate(Decimal("1000.00")) == 0.5
+    assert StatsAPI.get_interest_rate(Decimal("1000.01")) == 0.93
+    assert StatsAPI.get_interest_rate(Decimal("4000.00")) == 0.93
+    assert StatsAPI.get_interest_rate(Decimal("4000.01")) == 1.02
