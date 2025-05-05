@@ -51,3 +51,11 @@ def test_deposit_should_register_transaction_with_correct_data():
     tx = account.transactions[0]
     assert tx.amount == Decimal("100.00")
     assert tx.type == "DEPOSIT"
+
+
+def test_deposit_should_register_transaction_with_enum_type():
+    account = InterestAccount(user_id=uuid4(), interest_rate=0.5)
+    account.deposit("100.00")
+    tx = account.transactions[0]
+    assert tx.amount == Decimal("100.00")
+    assert tx.type == TransactionType.DEPOSIT
