@@ -3,6 +3,7 @@ import pytest
 from uuid import uuid4
 from interest_account.account import InterestAccount
 from decimal import Decimal
+from interest_account.models import TransactionType
 
 
 def test_should_create_account_with_user_id_and_interest_rate():
@@ -50,7 +51,7 @@ def test_deposit_should_register_transaction_with_correct_data():
     account.deposit("100.00")
     tx = account.transactions[0]
     assert tx.amount == Decimal("100.00")
-    assert tx.type == "DEPOSIT"
+    assert tx.type == TransactionType.DEPOSIT
 
 
 def test_deposit_should_register_transaction_with_enum_type():

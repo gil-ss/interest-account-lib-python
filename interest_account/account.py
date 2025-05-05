@@ -1,7 +1,7 @@
 from decimal import Decimal
 from uuid import UUID
 from .money import to_money
-from .models import Transaction
+from .models import Transaction, TransactionType
 
 
 class InterestAccount:
@@ -48,4 +48,7 @@ class InterestAccount:
             raise ValueError("Deposit amount must be positive.")
 
         self.balance += money
-        self.transactions.append(Transaction(amount=money, type="DEPOSIT"))
+        self.transactions.append(Transaction(
+            amount=money,
+            type=TransactionType.DEPOSIT
+        ))
