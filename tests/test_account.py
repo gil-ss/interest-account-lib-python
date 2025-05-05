@@ -43,3 +43,11 @@ def test_deposit_should_raise_error_for_zero_or_negative_amount():
 
     with pytest.raises(ValueError, match="must be positive"):
         account.deposit("-10")
+
+
+def test_deposit_should_register_transaction_with_correct_data():
+    account = InterestAccount(user_id=uuid4(), interest_rate=0.5)
+    account.deposit("100.00")
+    tx = account.transactions[0]
+    assert tx.amount == Decimal("100.00")
+    assert tx.type == "DEPOSIT"
