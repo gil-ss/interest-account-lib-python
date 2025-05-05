@@ -70,3 +70,16 @@ def test_transaction_should_include_timestamp():
     assert hasattr(tx, "timestamp")
     assert isinstance(tx.timestamp, datetime.datetime)
     assert tx.user_id == account.user_id
+
+
+def test_apply_interest_should_add_interest_and_log_transaction():
+    account = InterestAccount(user_id=uuid4(), interest_rate=1.0)  # 1%
+    account.deposit("100.00")
+    account.apply_interest()
+    assert account.balance == Decimal("101.00")  # 1% of 100
+    assert len(account.transactions) == 2  # deposit + interest
+    tx = account.transactions[1]
+    assert tx.amount == Decimal("1.00")
+    assert tx.type == TransactionType.INTEREST
+    assert tx.user_id == account.user_id
+    assert account.skipped_interest == Decimal("0.00")
