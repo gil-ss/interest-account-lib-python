@@ -1,5 +1,6 @@
-from interest_account.money import to_money
 import pytest
+
+from interest_account.money import to_money
 
 
 def test_should_convert_string_to_decimal():
