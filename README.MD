@@ -33,8 +33,11 @@ pytest --cov=interest_account --cov-report=term-missing
 
 ```
 interest_account-lib-python/
+├── account.py        # Business logic
 ├── money.py          # Decimal-safe money utils
 tests/
+├── test_account.py
+├── test_money.py
 
 ```
 
