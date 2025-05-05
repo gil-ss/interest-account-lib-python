@@ -78,20 +78,23 @@ pytest --cov=interest_account --cov-report=term-missing
 
 ```
 interest_account-lib-python/
-├── account.py        # Business logic
-├── api.py            # External API simulation
-├── factory.py        # Account creation logic
-├── models.py         # Data models
-├── money.py          # Decimal-safe money utils
-tests/
-├── test_account.py
-├── test_api.py
-├── test_factory.py
-├── test_money.py
+├── interest_account/
+│   ├── account.py        # Business logic
+│   ├── api.py            # External API simulation
+│   ├── factory.py        # Account creation logic
+│   ├── models.py         # Data models
+│   └── money.py          # Decimal-safe money utils
+├── scripts/
+│   └── apply_interest_job.py  # Script for scheduled interest application
+├── cron/
+│   └── apply_interest_cron    # Cron job definition (every 3 days)
+├── tests/
+│   ├── test_account.py
+│   ├── test_api.py
+│   ├── test_factory.py
+│   └── test_money.py
 
 ```
-
----
 
 ---
 
@@ -99,8 +102,51 @@ tests/
 
 This project uses [GitHub Actions](https://github.com/features/actions) for continuous integration and coverage reporting.
 
-- ✅ Automatic test runs on every push and PR
-- 📈 Coverage reports via [Codecov](https://codecov.io/)
+- 🤖 Automatic test runs on every push and PR
+- ☂️ Coverage reports via [Codecov](https://codecov.io/)
+
+---
+
+### 🐳 Docker, Makefile & Cron Integration
+
+This project supports containerized execution and automation with Docker and Makefile.
+
+###### Build the container
+```bash
+make build
+```
+
+###### Run tests inside the container
+```bash
+make test
+```
+
+###### Run the interest application job manually
+```bash
+make apply
+```
+
+###### Output example:
+```json
+{'amount': '1000.00', 'type': 'DEPOSIT', 'timestamp': '...'}
+{'amount': '9.30', 'type': 'INTEREST', 'timestamp': '...'}
+```
+
+###### Scheduled interest application with cron
+The container includes a cron job that runs every 3 days at midnight:
+ - File: cron/apply_interest_cron.
+ - Script: scripts/apply_interest_job.py.
+ - Logs: /var/log/interest.log inside the container
+
+###### Open interactive shell
+```bash
+make shell
+```
+
+###### Clean local image
+```bash
+make clean
+```
 
 ---
 
