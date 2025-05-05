@@ -1,4 +1,4 @@
-# 💰 Interest Account
+# 💰 Interest Account 🐍
 
 ![Python](https://img.shields.io/badge/Python-3.11%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
@@ -14,11 +14,12 @@ It calculates interest based on user income using business rules, tracks deposit
 
 ### Features
 
-- Deposit money (validated and tracked).
-- Skipped interest handling for micro-amounts (< £0.01).
-- Income-based interest rates (via Stats API).
-- Full transaction history.
-- Designed with SOLID principles and unit-tested.
+- 💵 Safe deposit handling with validation.
+- 🧮 Interest applied based on income tiers.
+- ⏳ Micro interest (< £0.01) is safely accumulated.
+- 🧾 Full transaction log with timestamps.
+- 🧰 Built using SOLID, TDD, and Pythonic idioms.
+- 📈 100% unit test coverage with `pytest-cov`.
 
 ---
 
@@ -30,6 +31,32 @@ cd interest-account-lib-python
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+```
+---
+
+### Usage
+
+``` python
+from uuid import uuid4
+from interest_account.api import StatsAPI
+from interest_account.factory import InterestAccountFactory
+
+user_id = uuid4()
+
+# Setup Stats API
+api = StatsAPI()
+api.set_income(user_id, 2500.00)
+
+# Create interest-bearing account
+factory = InterestAccountFactory(api)
+account = factory.create(user_id)
+
+# Interact with the account
+account.deposit("100.00")
+account.apply_interest()
+
+# Get statement
+print(account.get_statement())
 ```
 
 ---
@@ -43,6 +70,7 @@ pytest --cov=interest_account --cov-report=term-missing
  - account.py
  - money.py
  - api.py
+ - factory.py
 
 ---
 
@@ -52,11 +80,13 @@ pytest --cov=interest_account --cov-report=term-missing
 interest_account-lib-python/
 ├── account.py        # Business logic
 ├── api.py            # External API simulation
+├── factory.py        # Account creation logic
 ├── models.py         # Data models
 ├── money.py          # Decimal-safe money utils
 tests/
 ├── test_account.py
 ├── test_api.py
+├── test_factory.py
 ├── test_money.py
 
 ```
@@ -65,9 +95,9 @@ tests/
 
 ### Design Principles
 
-- Clean Architecture (separation of concerns)
-- Pythonic idioms (dataclasses, enums, decimal)
-- Test-driven development (TDD)
-- No database or web framework — **_Pure Logic_** 🧠
+- 🧼 Clean Architecture (separation of responsibilities).
+- 🧪 Test-Driven Development (TDD-first).
+- 🐍 Pythonic: dataclasses, enums, Decimal, typing.
+- 🧠 Lightweight, no frameworks — just pure logic
 
 ---
