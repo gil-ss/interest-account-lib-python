@@ -85,3 +85,25 @@ class InterestAccount:
             self.skipped_interest = to_money("0")
         else:
             self.skipped_interest += raw_interest
+
+
+    def get_statement(self) -> list[dict]:
+        """
+        Returns a chronological list of all account transactions.
+
+        Each transaction is represented as a dictionary with:
+            - amount
+            - type
+            - timestamp (ISO 8601 format)
+
+        Returns:
+            List[Dict]: All transactions in the order they occurred.
+        """
+        return [
+            {
+                "amount": str(tx.amount), # string for compatibility
+                "type": tx.type.name,
+                "timestamp": tx.timestamp.isoformat()
+            }
+            for tx in self.transactions
+        ]
