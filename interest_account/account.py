@@ -1,8 +1,9 @@
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal
 from uuid import UUID
 from .money import to_money
 from .models import Transaction, TransactionType
 from datetime import datetime, timezone
+from .money import round_money
 
 
 class InterestAccount:
@@ -58,11 +59,19 @@ class InterestAccount:
 
 
     def apply_interest(self) -> None:
+        """
+        Applies interest to the account based on the current balance and interest rate.
+
+        - Interest is only added if the computed amount is >= 0.01.
+        - If it's less than 0.01, it is stored in `skipped_interest` until it accumulates enough.
+
+        This ensures that small interest amounts are not lost due to rounding.
+        """
         interest = self.balance * Decimal(str(self.interest_rate)) / Decimal("100")
         total_interest = self.skipped_interest + interest
 
         if total_interest >= Decimal("0.01"):
-            total_interest = total_interest.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+            total_interest = round_money(total_interest)
             self.balance += total_interest
             self.transactions.append(Transaction(
                 user_id=self.user_id,
