@@ -60,3 +60,11 @@ def test_deposit_should_register_transaction_with_enum_type():
     tx = account.transactions[0]
     assert tx.amount == Decimal("100.00")
     assert tx.type == TransactionType.DEPOSIT
+
+
+def test_transaction_should_include_timestamp():
+    account = InterestAccount(user_id=uuid4(), interest_rate=0.5)
+    account.deposit("42.00")
+    tx = account.transactions[0]
+    assert hasattr(tx, "timestamp")
+    assert isinstance(tx.timestamp, datetime.datetime)
