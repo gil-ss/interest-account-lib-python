@@ -83,3 +83,13 @@ def test_apply_interest_should_add_interest_and_log_transaction():
     assert tx.type == TransactionType.INTEREST
     assert tx.user_id == account.user_id
     assert account.skipped_interest == Decimal("0.00")
+
+
+def test_apply_interest_should_accumulate_interest_below_threshold():
+    account = InterestAccount(user_id=uuid4(), interest_rate=0.005)  # 0.005% interest
+    account.deposit("10.00")  # interest = 0.0005
+    account.apply_interest()
+    assert account.balance == Decimal("10.00")  # balance does not change
+    assert len(account.transactions) == 1
+    assert account.skipped_interest > Decimal("0.00")
+    assert account.skipped_interest < Decimal("0.01")
