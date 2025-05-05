@@ -22,11 +22,28 @@ It calculates interest based on user income using business rules, tracks deposit
 
 ---
 
+### 📦 Installation
+
+```bash
+git clone git@github.com:gil-ss/interest-account-lib-python.git
+cd interest-account-lib-python
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+---
+
 ### Running Tests
 
 ```bash
 pytest --cov=interest_account --cov-report=term-missing
 ```
+###### Ensure 100% coverage:
+ - account.py
+ - money.py
+ - api.py
+
 ---
 
 ### Project Structure
@@ -34,10 +51,12 @@ pytest --cov=interest_account --cov-report=term-missing
 ```
 interest_account-lib-python/
 ├── account.py        # Business logic
+├── api.py            # External API simulation
 ├── models.py         # Data models
 ├── money.py          # Decimal-safe money utils
 tests/
 ├── test_account.py
+├── test_api.py
 ├── test_money.py
 
 ```
