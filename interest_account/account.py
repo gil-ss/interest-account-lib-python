@@ -1,8 +1,31 @@
 from decimal import Decimal
+from uuid import UUID
+from .money import to_money
+
 
 class InterestAccount:
-    def __init__(self, user_id, interest_rate):
-        self.user_id = user_id
-        self.interest_rate = interest_rate
-        self.balance = Decimal("0.00")
+    """
+    Represents a user's interest-bearing account.
+
+    This class is responsible for managing:
+        - The account balance
+        - Transaction history
+        - Accumulated interest below deposit threshold
+
+    It uses Decimal for precise monetary representation and relies on utility
+    functions for safe money rounding and conversion.
+    """
+
+    def __init__(self, user_id, interest_rate: float) -> None:
+        """
+        Initializes the account with a user ID and interest rate.
+
+        Args:
+            user_id (UUID): The account owner ID.
+            interest_rate (float): Interest rate percentage (e.g., 0.5 for 0.5%).
+        """
+        self.user_id: UUID = user_id
+        self.interest_rate: float = interest_rate
+        self.balance: Decimal = to_money("0")  # Always stored as Decimal
         self.transactions = []
+        self.skipped_interest: Decimal = to_money("0")
