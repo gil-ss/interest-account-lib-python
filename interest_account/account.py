@@ -29,3 +29,8 @@ class InterestAccount:
         self.balance: Decimal = to_money("0")  # Always stored as Decimal
         self.transactions = []
         self.skipped_interest: Decimal = to_money("0")
+
+
+    def deposit(self, amount) -> None:
+        self.balance += Decimal(amount)
+        self.transactions.append("deposit")
