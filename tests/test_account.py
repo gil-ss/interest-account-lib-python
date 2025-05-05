@@ -93,3 +93,15 @@ def test_apply_interest_should_accumulate_interest_below_threshold():
     assert len(account.transactions) == 1
     assert account.skipped_interest > Decimal("0.00")
     assert account.skipped_interest < Decimal("0.01")
+
+
+def test_get_statement_should_return_serialized_transactions():
+    account = InterestAccount(user_id=uuid4(), interest_rate=1.0)
+    account.deposit("50.00")
+    account.apply_interest()
+    statement = account.get_statement()
+    assert isinstance(statement, list)
+    assert len(statement) == 2
+    assert all("amount" in tx and "type" in tx and "timestamp" in tx for tx in statement)
+    assert statement[0]["amount"] == "50.00"
+    assert statement[0]["type"] == "DEPOSIT"
