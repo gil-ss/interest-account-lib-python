@@ -1,10 +1,11 @@
 # 💰 Interest Account
 
-[![Python Tests](https://github.com/gil-ss/interest-account-lib-python/actions/workflows/python-tests.yml/badge.svg)](https://github.com/gil-ss/interest-account-lib-python/actions/workflows/python-tests.yml)
 ![Python](https://img.shields.io/badge/Python-3.11%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Status](https://img.shields.io/badge/Status-Learning%20Project-yellow)
 
+[![Python Tests](https://github.com/gil-ss/interest-account-lib-python/actions/workflows/python-tests.yml/badge.svg)](https://github.com/gil-ss/interest-account-lib-python/actions/workflows/python-tests.yml)
+[![codecov](https://codecov.io/gh/gil-ss/interest-account-lib-python/branch/main/graph/badge.svg)](https://codecov.io/gh/gil-ss/interest-account-lib-python)
 
 A minimal Python library that simulates an interest-bearing savings account.  
 It calculates interest based on user income using business rules, tracks deposits, and provides transaction history.
