@@ -18,3 +18,8 @@ def test_new_account_should_start_with_empty_transaction_list():
     account = InterestAccount(user_id=uuid4(), interest_rate=0.5)
     assert isinstance(account.transactions, list)
     assert len(account.transactions) == 0
+
+
+def test_new_account_should_start_with_zero_skipped_interest():
+    account = InterestAccount(user_id=uuid4(), interest_rate=0.5)
+    assert account.skipped_interest == Decimal("0.00")
