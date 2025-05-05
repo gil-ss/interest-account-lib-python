@@ -67,18 +67,21 @@ class InterestAccount:
 
         This ensures that small interest amounts are not lost due to rounding.
         """
-        interest = self.balance * Decimal(str(self.interest_rate)) / Decimal("100")
-        total_interest = self.skipped_interest + interest
+        # Calculate raw interest
+        raw_interest = (self.balance * Decimal(self.interest_rate)) / Decimal("100")
+
+        # Add any previously skipped interest
+        total_interest = raw_interest + self.skipped_interest
+        total_interest = round_money(total_interest)
 
         if total_interest >= Decimal("0.01"):
-            total_interest = round_money(total_interest)
             self.balance += total_interest
             self.transactions.append(Transaction(
                 user_id=self.user_id,
                 amount=total_interest,
-                type=TransactionType.INTEREST,
-                timestamp=datetime.now(timezone.utc)
+                timestamp=datetime.now(timezone.utc),
+                type=TransactionType.INTEREST
             ))
-            self.skipped_interest = Decimal("0.00")
+            self.skipped_interest = to_money("0")
         else:
-            self.skipped_interest += interest
+            self.skipped_interest += raw_interest
