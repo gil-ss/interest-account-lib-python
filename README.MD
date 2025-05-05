@@ -93,6 +93,17 @@ tests/
 
 ---
 
+---
+
+### CI/CD
+
+This project uses [GitHub Actions](https://github.com/features/actions) for continuous integration and coverage reporting.
+
+- ✅ Automatic test runs on every push and PR
+- 📈 Coverage reports via [Codecov](https://codecov.io/)
+
+---
+
 ### Design Principles
 
 - 🧼 Clean Architecture (separation of responsibilities).
