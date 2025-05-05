@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from uuid import UUID
 from .money import to_money
 from .models import Transaction, TransactionType
@@ -55,3 +55,21 @@ class InterestAccount:
             type=TransactionType.DEPOSIT,
             timestamp=datetime.now(timezone.utc)
         ))
+
+
+    def apply_interest(self) -> None:
+        interest = self.balance * Decimal(str(self.interest_rate)) / Decimal("100")
+        total_interest = self.skipped_interest + interest
+
+        if total_interest >= Decimal("0.01"):
+            total_interest = total_interest.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+            self.balance += total_interest
+            self.transactions.append(Transaction(
+                user_id=self.user_id,
+                amount=total_interest,
+                type=TransactionType.INTEREST,
+                timestamp=datetime.now(timezone.utc)
+            ))
+            self.skipped_interest = Decimal("0.00")
+        else:
+            self.skipped_interest += interest
