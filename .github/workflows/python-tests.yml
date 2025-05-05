@@ -24,4 +24,5 @@ jobs:
 
       - name: Run tests
         run: |
+          export PYTHONPATH=.
           pytest --cov=interest_account --cov-report=term-missing
