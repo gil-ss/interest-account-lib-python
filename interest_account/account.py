@@ -2,6 +2,7 @@ from decimal import Decimal
 from uuid import UUID
 from .money import to_money
 from .models import Transaction, TransactionType
+from datetime import datetime, timezone
 
 
 class InterestAccount:
@@ -50,5 +51,6 @@ class InterestAccount:
         self.balance += money
         self.transactions.append(Transaction(
             amount=money,
-            type=TransactionType.DEPOSIT
+            type=TransactionType.DEPOSIT,
+            timestamp=datetime.now(timezone.utc)
         ))
