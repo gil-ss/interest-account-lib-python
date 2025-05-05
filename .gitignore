@@ -2,3 +2,16 @@
 /shelf/
 /workspace.xml
 .venv/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# PyCharm IDE
+.idea/
+
+# Coverage reports
+.coverage
+
+# Virtual environments
+.venv/
