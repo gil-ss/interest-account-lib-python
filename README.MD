@@ -34,6 +34,7 @@ pytest --cov=interest_account --cov-report=term-missing
 ```
 interest_account-lib-python/
 ├── account.py        # Business logic
+├── models.py         # Data models
 ├── money.py          # Decimal-safe money utils
 tests/
 ├── test_account.py
